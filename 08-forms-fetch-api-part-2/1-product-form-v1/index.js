@@ -209,7 +209,7 @@ export default class ProductForm {
   createTemplate = (templateName, data) => {
     const template = this.#templates[templateName];
 
-    return (template && template(data)) ?? "";
+    return template?.(data) ?? "";
   };
 
   handleImageMousedown = (e) => {
@@ -389,11 +389,5 @@ export default class ProductForm {
 
     this.remove();
     this.destroyListeners();
-
-    this.element = null;
-    this.subElements = null;
-    this.productId = null;
-    this.data = null;
-    this.categories = null;
   }
 }

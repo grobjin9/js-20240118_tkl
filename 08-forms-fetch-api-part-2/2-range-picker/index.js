@@ -204,7 +204,7 @@ export default class RangePicker {
   createTemplate = (templateName, data) => {
     const template = this.#templates[templateName];
 
-    return (template && template(data)) ?? "";
+    return template?.(data) ?? "";
   };
 
   selectSubElements = () => {
@@ -369,6 +369,7 @@ export default class RangePicker {
 
     input.removeEventListener("click", this.handleInputClick);
     selector.removeEventListener("click", this.handleSelectorClick);
+    document.removeEventListener("click", this.handleWindowClick);
   };
 
   dispatchEvent = (eventName) => {
@@ -387,10 +388,9 @@ export default class RangePicker {
   };
 
   destroy = () => {
-    if (this.element) {
-      this.remove();
+    if (!this.element) return;
 
-      this.destroyListeners();
-    }
+    this.remove();
+    this.destroyListeners();
   };
 }
